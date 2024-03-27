@@ -11,15 +11,16 @@ export class UserStorage {
         return !!user;
     }
     async findUserByEmail(email:string){
-        const user=User.findOne({email:email});
+        const user=await User.findOne({email:email});
+        
         return user
     }
     async getUserById(id:string){
-        const user=User.findById(id);
+        const user=await User.findById(id);
         return user
     }
     async updateUser(user:UserAttr){
-       const data= User.findByIdAndUpdate(user.id,user);
+       const data=await User.findByIdAndUpdate(user.id,user);
        return data
     }
 }
