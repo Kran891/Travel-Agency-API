@@ -1,0 +1,36 @@
+{
+    "returnId": "N2sZJzO0QvJqdFW8ykpOn",
+    "returnReference": "9BTZ-6H6H",
+    "pickupDate": "2023-05-04",
+    "expectedReturnDate": "2023-05-18",
+    "returnRefundAmount": {
+        "refundSummary": {
+            "summary": {
+                "total": {
+                    "amountExclTax": null,
+                    "amountInclTax": 4200,
+                    "currencyCode": "EUR",
+                    "taxAmount": null
+                },
+                "subTotal": {
+                    "amountExclTax": null,
+                    "amountInclTax": 4200,
+                    "currencyCode": "EUR",
+                    "taxAmount": null
+                },
+                "collectionService": {
+                    "amountExclTax": 0,
+                    "amountInclTax": 0,
+                    "currencyCode": "EUR",
+                    "taxAmount": null
+                }
+            },
+            "summaryHash": "qwertudhdhksdfkjsdmbmnkassd"
+        }
+    },
+    "returnSettlement": {
+        "returnOption": {
+            "deliveryMethodId": "SGR00001033"
+        }
+    }
+}
