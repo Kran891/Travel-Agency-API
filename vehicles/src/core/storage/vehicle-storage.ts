@@ -13,7 +13,7 @@ export class VehicleStorage implements IVehicleStorage{
         return vehicleDb
     }
     async updateVehicle(id:string,vehicle: VehicleAttr): Promise<VehicleAttr | null> {
-        const exsitingVehicle=Vehicle.findByIdAndUpdate(id,vehicle);
+        const exsitingVehicle=await Vehicle.findByIdAndUpdate(id,vehicle);
         return vehicle
     }
     async getVehicleById(id: string): Promise<VehicleAttr  | null>{

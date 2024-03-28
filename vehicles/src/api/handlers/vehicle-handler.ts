@@ -18,6 +18,7 @@ export class VehicleHandler implements IVehicleHandler{
     async updateVehicle(req: Request, res: Response, next: NextFunction): Promise<void> {
         const {id}=req.params
         const vehicle=await this.vehicleService.updateVehicle(id,{...req.body})
+        res.json(vehicle)
     }
     async getVehicleById(req: Request, res: Response, next: NextFunction): Promise<void> {
         const {id}=req.params
