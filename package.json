@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "auth-api": "ts-node-dev --poll auth/index.ts",
-    "vehicle-api": "ts-node-dev --poll vehicles/index.ts",
-    "log-api": "ts-node-dev --poll logging/index.ts"
+    "auth-api": "ts-node-dev --poll auth-api/index.ts",
+    "vehicle-api": "ts-node-dev --poll vehicle-api/index.ts",
+    "log-api": "ts-node-dev --poll logging-api/index.ts"
   },
   "author": "",
   "license": "ISC",
@@ -21,7 +21,6 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.1",
     "nanoid": "^5.0.6"
-    
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
