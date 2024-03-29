@@ -4,7 +4,8 @@ export interface IVehicleStorage{
     createVehicle(vehicle:VehicleAttr):Promise<VehicleAttr>;
     updateVehicle(id:string,vehicle:VehicleAttr):Promise<VehicleAttr  | null>;
     getVehicleById(id:string):Promise<VehicleAttr  | null>;
-    addroute(id:string,route:Route):Promise<VehicleAttr | null>
+    addRoute(id:string,route:Route):Promise<VehicleAttr | null>
+    removeRoute(id:string,route:Route):Promise<VehicleAttr | null>
 }
 export class VehicleStorage implements IVehicleStorage{
     async createVehicle(vehicle: VehicleAttr): Promise<VehicleAttr> {
@@ -14,17 +15,22 @@ export class VehicleStorage implements IVehicleStorage{
     }
     async updateVehicle(id:string,vehicle: VehicleAttr): Promise<VehicleAttr | null> {
         const exsitingVehicle=await Vehicle.findByIdAndUpdate(id,vehicle);
-        return vehicle
+        return exsitingVehicle
     }
     async getVehicleById(id: string): Promise<VehicleAttr  | null>{
         const vehicle=await Vehicle.findById(id);
         return vehicle
     }
-    async addroute(id: string, route: Route): Promise<VehicleAttr | null> {
+    async addRoute(id: string, route: Route): Promise<VehicleAttr | null> {
         const vehicle=await Vehicle.findById(id);
          vehicle?.routes.push(route)
         await vehicle?.save()
         return vehicle
+    }
+    async removeRoute(id:string,route:Route): Promise<VehicleAttr | null>{
+      const vehicle=await Vehicle.findByIdAndUpdate(id,{$pull:{routes:{source:route.source,destination:route.destination}}});
+      return vehicle
+      
     }
     
 }

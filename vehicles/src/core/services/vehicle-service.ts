@@ -1,13 +1,15 @@
+import { Route ,VehicleAttr} from "../models/vehicle";
 import { NotFoundError } from "../../errors/not-found-error";
 import { ServiceError } from "../../errors/service-error";
-import { Route, Vehicle, VehicleAttr } from "../models/vehicle";
+
 import { IVehicleStorage } from "../storage/vehicle-storage";
 
 export interface IVehicleService{
     createVehicle(vehicle:VehicleAttr):Promise<VehicleAttr>;
     updateVehicle(id:string,vehicle:VehicleAttr):Promise<VehicleAttr  | null>;
     getVehicleById(id:string):Promise<VehicleAttr  | null>;
-    addroute(id:string,route:Route):Promise<VehicleAttr | null>
+    addRoute(id:string,route:Route):Promise<VehicleAttr | null>
+    removeRoute(id:string,route:Route):Promise<VehicleAttr | null>
 }
 export class VehicleService implements IVehicleService{
     constructor(private vehicleStorage:IVehicleStorage){}
@@ -32,8 +34,15 @@ export class VehicleService implements IVehicleService{
         }
         throw new ServiceError(`No Vehicle was Found with Id ${id}`)
     }
-    async addroute(id: string, route: Route): Promise<VehicleAttr | null> {
-        const vehicle=await this.vehicleStorage.addroute(id,route)
+    async addRoute(id: string, route: Route): Promise<VehicleAttr | null> {
+        const vehicle=await this.vehicleStorage.addRoute(id,route)
+        if(vehicle){
+            return vehicle
+        }
+        throw new ServiceError(`No Vehicle was Found with Id ${id}`)
+    }
+    async removeRoute(id: string, route: Route): Promise<VehicleAttr | null> {
+        const vehicle=await this.vehicleStorage.removeRoute(id,route)
         if(vehicle){
             return vehicle
         }

@@ -7,7 +7,8 @@ export interface IVehicleHandler{
     createVehicle(req:Request,res:Response,next:NextFunction):void;
     updateVehicle(req:Request,res:Response,next:NextFunction):void;
     getVehicleById(req:Request,res:Response,next:NextFunction):void;
-    addroute(req:Request,res:Response,next:NextFunction):void;
+    addRoute(req:Request,res:Response,next:NextFunction):void;
+    removeRoute(req:Request,res:Response,next:NextFunction):void;
 }
 export class VehicleHandler implements IVehicleHandler{
     constructor(private vehicleService:IVehicleService){}
@@ -25,9 +26,14 @@ export class VehicleHandler implements IVehicleHandler{
         const vehicle=await this.vehicleService.getVehicleById(id);
         res.json(vehicle);
     }
-    async addroute(req: Request, res: Response, next: NextFunction): Promise<void> {
+    async addRoute(req: Request, res: Response, next: NextFunction): Promise<void> {
         const {id}=req.params
-        const vehicle=await this.vehicleService.addroute(id,req.body as Route)
+        const vehicle=await this.vehicleService.addRoute(id,req.body as Route)
+        res.json(vehicle)
+    }
+    async removeRoute(req: Request, res: Response, next: NextFunction): Promise<void> {
+        const {id}=req.params
+        const vehicle=await this.vehicleService.removeRoute(id,req.body as Route)
         res.json(vehicle)
     }
     

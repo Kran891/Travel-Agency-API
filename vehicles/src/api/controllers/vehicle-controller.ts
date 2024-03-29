@@ -7,7 +7,8 @@ const vehicleService:IVehicleService=new VehicleService(vehicleStorage);
 const vehicleHandler:IVehicleHandler=new VehicleHandler(vehicleService);
 
 const createVehilce=asyncErrorMiddleware(vehicleHandler.createVehicle.bind(vehicleHandler))
-const addroute=asyncErrorMiddleware(vehicleHandler.addroute.bind(vehicleHandler))
+const addroute=asyncErrorMiddleware(vehicleHandler.addRoute.bind(vehicleHandler))
 const getVehicleById=asyncErrorMiddleware(vehicleHandler.getVehicleById.bind(vehicleHandler))
 const updateVehicle=asyncErrorMiddleware(vehicleHandler.updateVehicle.bind(vehicleHandler))
-export {createVehilce,addroute,getVehicleById,updateVehicle}
+const removeRoute=asyncErrorMiddleware(vehicleHandler.removeRoute.bind(vehicleHandler))
+export {createVehilce,addroute,getVehicleById,updateVehicle,removeRoute}
