@@ -24,6 +24,6 @@ const callback = (error:any, data:any, response:any) => {
 };
 
 app.listen(3000,()=>{
-    console.log("Running");
+    console.log(`✅ Service is running on http://localhost:3000/api/messaging`);
     
 })

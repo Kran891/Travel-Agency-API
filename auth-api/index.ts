@@ -32,12 +32,15 @@ app.use(jsonErrorMiddle);
 const start=async()=>{
     try {
         mongoose.connect("mongodb://localhost:27017/travel-agency-users")
+        console.log("🍀 Successfly connected to MongoDB LocalService");
+        
         app.listen(4000,()=>
         {
-            console.log("Running on port ",4000);
+            console.log(`✅ Service is running on http://localhost:4000/api/user`);
             
         }) 
     } catch (error) {
+        console.log(`❌ Error in Connection ${error}`);
         
     }
     

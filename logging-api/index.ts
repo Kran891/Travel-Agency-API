@@ -10,12 +10,14 @@ app.get("/api/log/:id/id",getLogsAsync);
 const start=async()=>{
     try {
         mongoose.connect("mongodb://localhost:27017/travel-agency-logs")
+        console.log("🍀 Successfly connected to MongoDB LocalService");
+        
         app.listen(4040,()=>{
-            console.log("Running on Port 4040");
+            console.log(`✅ Service is running on http://localhost:4040/api/log`);
             
         })
     } catch (error) {
-        console.log(error);
+        console.log(`❌ Error in Connection ${error}`);
         
     }  
 }
