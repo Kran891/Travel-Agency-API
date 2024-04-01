@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "auth-api": "ts-node-dev --poll auth/index.ts",
-    "vehicle-api":"ts-node-dev --poll vehicles/index.ts"
+    "vehicle-api":"ts-node-dev --poll vehicles/index.ts",
+    "booking-api" : "ts-node-dev --poll booking/index.ts"
   },
   "author": "",
   "license": "ISC",
