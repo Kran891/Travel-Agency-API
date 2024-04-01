@@ -10,13 +10,14 @@ import {
 } from './controller/booking-controller';
 
 const router = express.Router()
-router.post("/create", createBooking)
-router.post("/update/:id/id", updateBooking)
-router.post("/delete/:id/id", deleteBooking)
-router.post("/cancel/:id/id", cancelBooking)
-router.post("/getallbookingsforthedate", getAllBookingsForTheDate)
-router.post("/getallbookingsofthemonth", getAllBookingsOfMonth)
-router.get("/:id/id", getBookingById)
+
+router.route("/create").post(createBooking);
+router.route("/update/:id/id").post(updateBooking)
+router.route("/delete/:id/id").post(deleteBooking)
+router.route("/cancel/:id/id").post(cancelBooking)
+router.route("/getallbookingsforthedate").post(getAllBookingsForTheDate)
+router.route("/getallbookingsofthemonth").post(getAllBookingsOfMonth)
+router.route("/:id/id", ).get(getBookingById)
 
 
 export { router as BookingRouter }
