@@ -32,9 +32,7 @@ const vehicleSchema=new mongoose.Schema({
     type:String,
     enum:VehicleType
  },
- agencyName:{
-    type:String,
- },
+ 
  routes:[]
 },{
     toJSON:{
@@ -59,7 +57,7 @@ interface VehicleAttr{
     vehicleType:VehicleType,
     routes:Route[],
     id?:string,
-    agencyName:string
+    
 }
 interface VehicleDoc extends mongoose.Document{
     registrationNumber:string,

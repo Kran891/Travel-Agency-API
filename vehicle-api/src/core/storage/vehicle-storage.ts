@@ -1,4 +1,4 @@
-import { Route, Vehicle, VehicleAttr } from "../models/vehicle";
+import { Route, Vehicle, VehicleAttr, VehicleStatus } from "../models/vehicle";
 
 export interface IVehicleStorage{
     createVehicle(vehicle:VehicleAttr):Promise<VehicleAttr>;
@@ -6,6 +6,7 @@ export interface IVehicleStorage{
     getVehicleById(id:string):Promise<VehicleAttr  | null>;
     addRoute(id:string,route:Route):Promise<VehicleAttr | null>
     removeRoute(id:string,route:Route):Promise<VehicleAttr | null>
+    getVehiclesByRoute(route:Route): Promise<VehicleAttr[] | null>
 }
 export class VehicleStorage implements IVehicleStorage{
     async createVehicle(vehicle: VehicleAttr): Promise<VehicleAttr> {
@@ -32,5 +33,11 @@ export class VehicleStorage implements IVehicleStorage{
       return vehicle
       
     }
+    async getVehiclesByRoute(route:Route): Promise<VehicleAttr[] | null>{
+       
+        const vehicles=await Vehicle.find({'routes.source':route.source,'routes.destination':route.destination,vehicleStatus:VehicleStatus[VehicleStatus.ON_DUTY]})
+        return vehicles
+        
+      }
     
 }

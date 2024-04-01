@@ -1,8 +1,11 @@
+import { TEMPLATE_FOOTER } from "./template-footer"
+import { TEMPLATE_HEADER } from "./template-header"
+
 const template=(name:string)=>{
     return `
-    <h3>Hi ${name}</h3>
-    <h2>Your booking details are here</h2>
-    <p>Date of Journey:${(new Date()).toISOString()}</p>
+    ${TEMPLATE_HEADER}
+    
+    ${TEMPLATE_FOOTER}
     `
 }
 export {template}

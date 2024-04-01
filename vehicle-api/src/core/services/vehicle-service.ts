@@ -10,9 +10,17 @@ export interface IVehicleService{
     getVehicleById(id:string):Promise<VehicleAttr  | null>;
     addRoute(id:string,route:Route):Promise<VehicleAttr | null>
     removeRoute(id:string,route:Route):Promise<VehicleAttr | null>
+    getVehiclesByRoute(route:Route): Promise<VehicleAttr[] | null>
 }
 export class VehicleService implements IVehicleService{
     constructor(private vehicleStorage:IVehicleStorage){}
+    async getVehiclesByRoute(route: Route): Promise<VehicleAttr[] | null> {
+        const vehicles=await this.vehicleStorage.getVehiclesByRoute(route)
+        if(vehicles?.length){
+            return vehicles
+        }
+        throw new ServiceError(`No Vehicle was Found with source: ${route.source} and destination: ${route.destination}.`)
+    }
     async createVehicle(vehicle: VehicleAttr): Promise<VehicleAttr> {
         const creVehicle=await this.vehicleStorage.createVehicle(vehicle);
         if(vehicle){

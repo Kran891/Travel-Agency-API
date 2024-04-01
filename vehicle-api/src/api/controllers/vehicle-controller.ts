@@ -11,4 +11,5 @@ const addroute=asyncErrorMiddleware(vehicleHandler.addRoute.bind(vehicleHandler)
 const getVehicleById=asyncErrorMiddleware(vehicleHandler.getVehicleById.bind(vehicleHandler))
 const updateVehicle=asyncErrorMiddleware(vehicleHandler.updateVehicle.bind(vehicleHandler))
 const removeRoute=asyncErrorMiddleware(vehicleHandler.removeRoute.bind(vehicleHandler))
-export {createVehilce,addroute,getVehicleById,updateVehicle,removeRoute}
+const getVehiclesByRoute=asyncErrorMiddleware(vehicleHandler.getVehiclesByRoute.bind(vehicleHandler))
+export {createVehilce,addroute,getVehicleById,updateVehicle,removeRoute,getVehiclesByRoute}
