@@ -32,6 +32,9 @@ const vehicleSchema=new mongoose.Schema({
     type:String,
     enum:VehicleType
  },
+ agencyName:{
+    type:String,
+ },
  routes:[]
 },{
     toJSON:{
@@ -55,7 +58,8 @@ interface VehicleAttr{
     driverId:string,
     vehicleType:VehicleType,
     routes:Route[],
-    id?:string
+    id?:string,
+    agencyName:string
 }
 interface VehicleDoc extends mongoose.Document{
     registrationNumber:string,
@@ -75,5 +79,4 @@ vehicleSchema.statics.build=(vehicle:VehicleAttr)=>{
     return new Vehicle(vehicle);
 }
 const Vehicle=mongoose.model<VehicleDoc,VehicleModel>('vehicle',vehicleSchema);
-
-export {Vehicle,VehicleAttr,Route};
+export {Vehicle,VehicleAttr,Route,VehicleStatus};
