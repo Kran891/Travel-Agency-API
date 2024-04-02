@@ -8,6 +8,7 @@ import { VehicleRouter } from './src/api/routing';
 
 
 const app=express()
+const mongoURL=process.env.MONGOURL || "mongodb://localhost:27017/travel-agency-vehicles"
 app.set('trust proxy',true)
 app.use(cookieSession({
     signed:false,
@@ -31,7 +32,7 @@ app.all('*',async(req,res,next) =>{
 app.use(jsonErrorMiddle);
 const start=async()=>{
     try {
-        mongoose.connect("mongodb://localhost:27017/travel-agency-vehicles")
+        mongoose.connect(mongoURL)
         console.log("🍀 Successfly connected to MongoDB LocalService");
         
         app.listen(4001,()=>

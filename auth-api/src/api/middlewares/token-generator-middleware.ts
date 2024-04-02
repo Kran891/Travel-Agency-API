@@ -6,6 +6,6 @@ const tokenGeneratorMiddleware=async(data:any)=>{
     return userjwt;
 }
 
-export const KEY='KRANTRANSPORT'
+export const KEY= process.env.JWT_KEY || 'KRANTRANSPORT'
 
 export {tokenGeneratorMiddleware}
