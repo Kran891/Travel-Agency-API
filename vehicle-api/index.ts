@@ -17,7 +17,7 @@ app.use(cookieSession({
 }))
 app.use(json())
 app.get("/",(req,res)=>{
-    res.json("Welcome To Auth API")
+    res.json("Welcome To Vehicle API")
 })
 
 app.use("/api/vehicles/",VehicleRouter);
@@ -37,7 +37,7 @@ const start=async()=>{
         
         app.listen(4001,()=>
         {
-            console.log(`✅ Service is running on http://localhost:4000/api/vehicles`);
+            console.log(`✅ Service is running on http://localhost:4001/api/vehicles`);
             
         }) 
     } catch (error) {

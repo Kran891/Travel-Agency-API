@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { loggingMiddleware } from "../../../../shared/logging-middleware";
+import { loggingMiddleware } from "../../logging-middleware"
 
 
 type Middleware=(req:Request,res:Response,next:NextFunction)=>void;

@@ -22,7 +22,7 @@ const loggingMiddleware = async (req: Request | Response | any, parentId?: strin
         }
     }
 
-const res = await axios.post("http://localhost:4040/api/log/create", content).catch(err => {
+const res = await axios.post("http://localhost:4040/api/log/create", content).catch((err:any) => {
     console.log(err);
 
 })

@@ -10,16 +10,16 @@ export class UserStorage {
         const user=await User.findByIdAndDelete(userId)
         return !!user;
     }
-    async findUserByEmail(email:string){
+    async findUserByEmail(email:string):Promise<UserAttr | null>{
         const user=await User.findOne({email:email});
         
         return user
     }
-    async getUserById(id:string){
+    async getUserById(id:string):Promise<UserAttr | null>{
         const user=await User.findById(id);
         return user
     }
-    async updateUser(user:UserAttr){
+    async updateUser(user:UserAttr):Promise<UserAttr | null>{
        const data=await User.findByIdAndUpdate(user.id,user);
        return data
     }
