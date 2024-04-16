@@ -5,6 +5,7 @@ import cookieSession from 'cookie-session'
 import { NotFoundError } from './src/errors/not-found-error';
 import { jsonErrorMiddle } from './src/api/middlewares/json-error-middleware';
 import { UserRouting } from './src/api/routing';
+import { openApiMiddleware } from './src/api/middlewares/open-api-middleware';
 
 
 const app=express()
@@ -16,18 +17,12 @@ app.use(cookieSession({
     httpOnly:true
 }))
 app.use(json())
-app.get("/",(req,res)=>{
-    res.json("Welcome To Auth API")
-})
+// app.get("/",(req,res)=>{
+//     res.json("Welcome To Auth API")
+// })
+app.use(openApiMiddleware)
+//app.use("/api/user/",UserRouting);
 
-app.use("/api/user/",UserRouting);
-app.all('*',async(req,res,next) =>{
-    try {
-      throw new NotFoundError()   
-    } catch (error) {
-        next(error)
-    }
-})
 
 app.use(jsonErrorMiddle);
 const start=async()=>{

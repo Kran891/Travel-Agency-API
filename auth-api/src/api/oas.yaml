@@ -1,0 +1,151 @@
+openapi: 3.0.3
+info:
+  title: Swagger UserAuthentication API - OpenAPI 3.0
+  version: 1.0.11
+  description: >-
+    This is an API in which user data is stored in mongoDB and checks for the
+    authentication
+
+
+    - CRUD operations
+       - Create user
+       - Update user
+       - Delete user
+       - Get User By Id
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: https://petstore3.swagger.io/api/v3
+tags:
+  - name: User
+    description: These all the URL where CRUD for user is performed
+paths:
+  /api/user/create:
+    summary: This routing is used to create a new User
+    post:
+      summary: This is used to create a user
+      description: ''
+      operationId: createUserAsync
+      x-eov-operation-handler: user-controller
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+      responses:
+        default:
+          description: Default error sample response
+          content:
+            application/json:
+              examples:
+                CreateUserResponse:
+                  value: |-
+                    {
+                    "id":"1dadv3dsaff",
+                    "email":"test@gmail.com",
+                    "role":"DRIVER"
+                    }
+        
+      tags:
+        - User
+  /api/user/signin:
+    summary: These is for signing the user and jwt token will get in cookie
+    post:
+      summary: ''
+      description: ''
+      x-eov-operation-handler: user-controller
+      operationId: userSignInAsync
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInUser'
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - User
+  /api/user/{id}/id:
+    summary: 'This is used to get the user with the id '
+    parameters:
+      - $ref: '#/components/parameters/IdParam'
+    get:
+      summary: ''
+      description: ''
+      x-eov-operation-handler: user-controller
+      operationId: getUserByIdAsync
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - User
+  /api/user/{id}/id/update:
+    parameters:
+      - $ref: '#/components/parameters/IdParam'
+    summary: To update the user data
+    post:
+      summary: ''
+      description: ''
+      x-eov-operation-handler: user-controller
+      operationId: updateUserAsyc
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - User
+components:
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^.{24}$
+        example: 5f83827c6b3df58f10ab7d47
+  schemas:
+    CreateUser:
+      type: object
+      required:
+        - email
+        - password
+        - role
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          pattern: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{9,}$
+          example: Test@1234
+        role:
+          type: string
+          enum:
+            - User
+            - Admin
+            - Driver
+    SignInUser:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          pattern: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{9,}$
+          example: Test@1234
