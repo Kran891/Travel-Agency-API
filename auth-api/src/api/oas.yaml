@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Swagger UserAuthentication API - OpenAPI 3.0
+  title: Swagger User Authentication API - OpenAPI 3.0
   version: 1.0.11
   description: >-
     This is an API in which user data is stored in mongoDB and checks for the
@@ -19,12 +19,12 @@ externalDocs:
   description: Find out more about Swagger
   url: http://swagger.io
 servers:
-  - url: https://petstore3.swagger.io/api/v3
+  - url: http://localhost:4000/api/user
 tags:
   - name: User
     description: These all the URL where CRUD for user is performed
 paths:
-  /api/user/create:
+  /create:
     summary: This routing is used to create a new User
     post:
       summary: This is used to create a user
@@ -36,24 +36,31 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateUser'
+              $ref: '#/components/schemas/CreateUserRequest'
       responses:
-        default:
-          description: Default error sample response
+        '201':
+          description: Response on successful creation of User
           content:
             application/json:
-              examples:
-                CreateUserResponse:
-                  value: |-
-                    {
-                    "id":"1dadv3dsaff",
-                    "email":"test@gmail.com",
-                    "role":"DRIVER"
-                    }
+              schema:
+                $ref: '#/components/schemas/UserDataLoginInResponse'
+        '409':
+          description: Email Id Exsits Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         
+              
       tags:
         - User
-  /api/user/signin:
+  /signin:
     summary: These is for signing the user and jwt token will get in cookie
     post:
       summary: ''
@@ -65,29 +72,61 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SignInUser'
+              $ref: '#/components/schemas/SignInUserRequest'
       responses:
         default:
           description: Default error sample response
+        '200':
+          description: 'On successful Login'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDataLoginInResponse'
+        '409':
+          description: 'If Email or Password Incorrect'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        
+          
       tags:
         - User
-  /api/user/{id}/id:
+  /{id}/id:
     summary: 'This is used to get the user with the id '
     parameters:
       - $ref: '#/components/parameters/IdParam'
+      - $ref: '#/components/parameters/JwtParam'
     get:
       summary: ''
       description: ''
       x-eov-operation-handler: user-controller
-      operationId: getUserByIdAsync
+      operationId: getUserByIdAsync  
       responses:
-        default:
-          description: Default error sample response
+        '200':
+          description: 'Retriving Exsiting User'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDataResponse'
+        '401':
+          description: 'If your Token is Invalid or not provided any token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 'If No User Was Found with the Id'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
       tags:
         - User
-  /api/user/{id}/id/update:
+  /{id}/id/update:
     parameters:
       - $ref: '#/components/parameters/IdParam'
+      - $ref: '#/components/parameters/JwtParam'
     summary: To update the user data
     post:
       summary: ''
@@ -99,10 +138,28 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateUser'
+              $ref: '#/components/schemas/CreateUserRequest'
       responses:
         default:
           description: Default error sample response
+        '200':
+          description: 'Retriving Exsiting User'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDataResponse'
+        '401':
+          description: 'If your Token is Invalid or not provided any token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 'If No User Was Found with the Id'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
       tags:
         - User
 components:
@@ -115,8 +172,15 @@ components:
         type: string
         pattern: ^.{24}$
         example: 5f83827c6b3df58f10ab7d47
+    JwtParam:
+      name: jwt
+      in: query
+      required: true
+      description: 'This is required for Authentication'
+      schema:
+        type: string
   schemas:
-    CreateUser:
+    CreateUserRequest:
       type: object
       required:
         - email
@@ -136,7 +200,7 @@ components:
             - User
             - Admin
             - Driver
-    SignInUser:
+    SignInUserRequest:
       type: object
       required:
         - email
@@ -149,3 +213,44 @@ components:
           type: string
           pattern: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{9,}$
           example: Test@1234
+    UserDataResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '661f90a1d3304f3e128e1ecd'
+        email:
+          type: string
+          example: 'test@gmail.com'
+        mobileNumber:
+          type: string
+          example: '+9112345677'
+        role:
+          type: string
+          enum:
+           - User
+           - Admin
+           - Driver
+    UserDataLoginInResponse:
+      type: object
+      properties:
+        user: 
+         $ref: '#/components/schemas/UserDataResponse'
+        jwt: 
+          type: string
+    ErrorResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        msg: 
+          type: string
+          example: "Error message"
+  securitySchemes:
+    user-auth:
+      type: apiKey
+      name: token
+      in: cookie
+    

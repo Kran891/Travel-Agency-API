@@ -9,8 +9,8 @@
     "vehicle-api": "ts-node-dev --poll vehicle-api/index.ts",
     "log-api": "ts-node-dev --poll logging-api/index.ts",
     "messaging-api": "ts-node-dev --poll messaging-api/index.ts",
-    "booking-api" : "ts-node-dev --poll booking/index.ts",
-    "build":"npx tsc",
+    "booking-api": "ts-node-dev --poll booking/index.ts",
+    "build": "npx tsc",
     "start": "node ./build/index.js"
   },
   "author": "",
@@ -35,6 +35,8 @@
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/nodemailer": "^6.4.14",
+    "@types/swagger-ui-express": "^4.1.6",
+    "@types/yamljs": "^0.2.34",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.2"
   }
