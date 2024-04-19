@@ -6,10 +6,10 @@ const vehicleStorage:IVehicleStorage=new VehicleStorage();
 const vehicleService:IVehicleService=new VehicleService(vehicleStorage);
 const vehicleHandler:IVehicleHandler=new VehicleHandler(vehicleService);
 
-const createVehilce=asyncErrorMiddleware(vehicleHandler.createVehicle.bind(vehicleHandler))
-const addroute=asyncErrorMiddleware(vehicleHandler.addRoute.bind(vehicleHandler))
-const getVehicleById=asyncErrorMiddleware(vehicleHandler.getVehicleById.bind(vehicleHandler))
-const updateVehicle=asyncErrorMiddleware(vehicleHandler.updateVehicle.bind(vehicleHandler))
-const removeRoute=asyncErrorMiddleware(vehicleHandler.removeRoute.bind(vehicleHandler))
-const getVehiclesByRoute=asyncErrorMiddleware(vehicleHandler.getVehiclesByRoute.bind(vehicleHandler))
-export {createVehilce,addroute,getVehicleById,updateVehicle,removeRoute,getVehiclesByRoute}
+const createVehicleAsync=asyncErrorMiddleware(vehicleHandler.createVehicle.bind(vehicleHandler))
+const addrouteAsync=asyncErrorMiddleware(vehicleHandler.addRoute.bind(vehicleHandler))
+const getVehicleByIdAsync=asyncErrorMiddleware(vehicleHandler.getVehicleById.bind(vehicleHandler))
+const updateVehicleAsync=asyncErrorMiddleware(vehicleHandler.updateVehicle.bind(vehicleHandler))
+const removeRouteAsync=asyncErrorMiddleware(vehicleHandler.removeRoute.bind(vehicleHandler))
+const getVehiclesByRouteAsync=asyncErrorMiddleware(vehicleHandler.getVehiclesByRoute.bind(vehicleHandler))
+export {createVehicleAsync,addrouteAsync,getVehicleByIdAsync,updateVehicleAsync,removeRouteAsync,getVehiclesByRouteAsync}

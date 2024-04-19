@@ -1,7 +1,7 @@
 import { CustomError } from "./custom-error";
 
 export class ServiceError extends CustomError{
-    statusCode: number=400;
+    statusCode: number=409;
     setError(): { msg: string; }[] {
         return [{msg:this.err}]
     }
