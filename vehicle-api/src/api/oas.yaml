@@ -33,10 +33,25 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Vehicle'
-      
       responses:
-        '200':
-          description: Default error sample response
+        '201':
+          description: When a New Vehicle has been created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+        '400':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: When token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
       tags:
         - Vehicle
   /update/{id}/id:
@@ -56,8 +71,30 @@ paths:
             schema:
               $ref: '#/components/schemas/Vehicle'
       responses:
-        default:
-          description: Default error sample response
+        '200':
+          description: When Vehicle data Updated Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+        '400':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: When token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: When any Service Error Occurs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
       tags:
         - Vehicle
   /{id}/id:
@@ -70,8 +107,18 @@ paths:
       x-eov-operation-handler: vehicle-controller
       operationId: getVehicleByIdAsync
       responses:
-        default:
-          description: Default error sample response
+        '200':
+          description: When Vehicle data Updated Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+        '409':
+          description: When any Service Error Occurs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
       tags:
         - Vehicle
   /{id}/id/addRoute:
@@ -91,6 +138,30 @@ paths:
             schema:
               $ref: '#/components/schemas/Route'
       responses:
+        '200':
+          description: When Vehicle found Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+        '400':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: When token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: When any Service Error Occurs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         default:
           description: Default error sample response
       tags:
@@ -116,6 +187,30 @@ paths:
             schema:
               $ref: '#/components/schemas/Route'
       responses:
+        '200':
+          description: When Vehicle data Updated Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: When token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: When any Service Error Occurs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         default:
           description: Default error sample response
       tags:
@@ -134,10 +229,65 @@ paths:
             schema:
               $ref: '#/components/schemas/Route'
       responses:
+        '200':
+          description: When Vehicles data Found Successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vehicle'
+        '400':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: When any Service Error Occurs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         default:
           description: Default error sample response
       tags:
         - Vehicle
+  /{vehicleId}/vehicleId/booking:
+    parameters:
+      - $ref: '#/components/parameters/vehicleIdParam'
+      
+    summary: This is used to create or update a booking on the date
+    post:
+      summary: ''
+      description: ''
+      security:
+       - token: []
+      x-eov-operation-handler: vehicle-booking-controller
+      operationId: updateBookingAsync
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+             $ref: '#/components/schemas/BookingSchema'
+      responses:
+        '200':
+          description: When an Booking Updated or Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingSchema'
+        '401':
+          description: When an token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: Default error sample response
+      tags:
+        - VehicleBooking
 components:
   parameters:
     IdParam:
@@ -147,6 +297,13 @@ components:
       schema:
         type: string
         example: 5f83827c6b3df58f10ab7d47
+    vehicleIdParam:
+      name: vehicleId
+      in: path
+      required: true
+      schema:
+        type: string
+        example: 5f83827c6b3df58f10ab7d47 
   schemas:
     Route:
       type: object
@@ -165,6 +322,14 @@ components:
           example: Vijayawada
     Vehicle:
       type: object
+      required:
+        - registrationNumber
+        - capacity
+        - priceperkm
+        - vehicleStatus
+        - driverId
+        - vehicleType
+        - routes
       properties:
         registrationNumber:
           type: string
@@ -199,6 +364,38 @@ components:
           items:
             $ref: '#/components/schemas/Route'
           uniqueItems: true
+        id:
+          type: string
+    ErrorResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/ErrorSchema'
+    ErrorSchema:
+      type: object
+      properties:
+        msg:
+          type: string
+          example: This is an Error message
+    BookingSchema:
+      type: object
+      required:
+       - date
+       - capacity
+      additionalProperties: false
+        
+      properties:
+        date:
+          type: string
+          format: date
+        capacity:
+          type: number
+          minimum: 1
+          maximum: 4
+          example: 1
+        id:
+          type: string
+        vehicleId: 
+          type: string
   securitySchemes:
     token:
       name: jwt

@@ -102,6 +102,9 @@ paths:
       description: ''
       x-eov-operation-handler: user-controller
       operationId: getUserByIdAsync  
+      security:
+        - user-auth: []
+      
       responses:
         '200':
           description: 'Retriving Exsiting User'
@@ -131,6 +134,9 @@ paths:
     post:
       summary: ''
       description: ''
+      security:
+        - user-auth: []
+      
       x-eov-operation-handler: user-controller
       operationId: updateUserAsyc
       requestBody:
@@ -251,6 +257,6 @@ components:
   securitySchemes:
     user-auth:
       type: apiKey
-      name: token
-      in: cookie
+      name: jwt
+      in: query
     

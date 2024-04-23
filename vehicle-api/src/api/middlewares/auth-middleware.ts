@@ -3,11 +3,17 @@ import  Jwt  from "jsonwebtoken";
 import { KEY } from "./token-generator-middleware";
 import { UnAuthorizeError } from "../../errors/unauthorize-error";
 const authMiddleware=(req:Request,res:Response,next:NextFunction)=>{
-  const data=Jwt.verify(req.session?.jwt,KEY)
+  try {
+    const data=Jwt.verify(req.session?.jwt || req.query.jwt,KEY)
   if(!data){
     throw new UnAuthorizeError();
   }
-  console.log(data);
+  } catch (error) {
+    throw new UnAuthorizeError();
+    
+  }
+  
+  
   
 }
 
