@@ -15,7 +15,7 @@ export class VehicleStorage implements IVehicleStorage{
         return vehicleDb
     }
     async updateVehicle(id:string,vehicle: VehicleAttr): Promise<VehicleAttr | null> {
-        const exsitingVehicle=await Vehicle.findByIdAndUpdate(id,vehicle);
+        const exsitingVehicle=await Vehicle.findByIdAndUpdate(id,vehicle,{new:true});
         return exsitingVehicle
     }
     async getVehicleById(id: string): Promise<VehicleAttr  | null>{
@@ -29,7 +29,7 @@ export class VehicleStorage implements IVehicleStorage{
         return vehicle
     }
     async removeRoute(id:string,route:Route): Promise<VehicleAttr | null>{
-      const vehicle=await Vehicle.findByIdAndUpdate(id,{$pull:{routes:{source:route.source,destination:route.destination}}});
+      const vehicle=await Vehicle.findByIdAndUpdate(id,{$pull:{routes:{source:route.source,destination:route.destination}}},{new:true});
       return vehicle
       
     }

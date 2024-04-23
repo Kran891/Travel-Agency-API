@@ -1,7 +1,7 @@
 import { CustomError } from "./custom-error";
 
 export class UnAuthorizeError extends CustomError{
-    statusCode: number=404;
+    statusCode: number=401;
     setError(): { msg: string; }[] {
         return [{msg:`You're not authorized to this page`}]
     }

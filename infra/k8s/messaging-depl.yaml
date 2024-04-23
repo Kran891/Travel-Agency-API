@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: travel-messaging-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: travel-messaging
+  template:
+    metadata:
+      labels:
+        app: travel-messaging
+    spec:
+      containers:
+        - name: travel-messaging
+          image: kran891/travel-messaging
+          imagePullPolicy: Never
+          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: travel-messaging-srv
+spec:
+  selector:
+    app: travel-messaging
+  ports:
+    - name: messaging-api
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+#inside while routing we need to use clusterIp name i:e comments-srv here

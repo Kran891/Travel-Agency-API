@@ -6,10 +6,10 @@ const app=express()
 app.use(json())
 app.post("/api/log/create",createLogAsync);
 app.get("/api/log/:id/id",getLogsAsync);
-
+const mongoURL=process.env.MONGO_URL || "mongodb://localhost:27017/travel-agency-logs"
 const start=async()=>{
     try {
-        mongoose.connect("mongodb://localhost:27017/travel-agency-logs")
+        mongoose.connect(mongoURL)
         console.log("🍀 Successfly connected to MongoDB LocalService");
         
         app.listen(4040,()=>{

@@ -1,4 +1,5 @@
 import { asyncErrorMiddleware } from "../middlewares/async-error-middleware";
+import { authMiddleware } from "../middlewares/auth-middleware";
 import { userHandler } from "../utils/services";
 
 const createUserAsync=asyncErrorMiddleware(userHandler.createUser.bind(userHandler));

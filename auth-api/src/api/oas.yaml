@@ -1,0 +1,262 @@
+openapi: 3.0.3
+info:
+  title: Swagger User Authentication API - OpenAPI 3.0
+  version: 1.0.11
+  description: >-
+    This is an API in which user data is stored in mongoDB and checks for the
+    authentication
+
+
+    - CRUD operations
+       - Create user
+       - Update user
+       - Delete user
+       - Get User By Id
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:4000/api/user
+tags:
+  - name: User
+    description: These all the URL where CRUD for user is performed
+paths:
+  /create:
+    summary: This routing is used to create a new User
+    post:
+      summary: This is used to create a user
+      description: ''
+      operationId: createUserAsync
+      x-eov-operation-handler: user-controller
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: Response on successful creation of User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDataLoginInResponse'
+        '409':
+          description: Email Id Exsits Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        
+              
+      tags:
+        - User
+  /signin:
+    summary: These is for signing the user and jwt token will get in cookie
+    post:
+      summary: ''
+      description: ''
+      x-eov-operation-handler: user-controller
+      operationId: userSignInAsync
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInUserRequest'
+      responses:
+        default:
+          description: Default error sample response
+        '200':
+          description: 'On successful Login'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDataLoginInResponse'
+        '409':
+          description: 'If Email or Password Incorrect'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        
+          
+      tags:
+        - User
+  /{id}/id:
+    summary: 'This is used to get the user with the id '
+    parameters:
+      - $ref: '#/components/parameters/IdParam'
+      - $ref: '#/components/parameters/JwtParam'
+    get:
+      summary: ''
+      description: ''
+      x-eov-operation-handler: user-controller
+      operationId: getUserByIdAsync  
+      security:
+        - user-auth: []
+      
+      responses:
+        '200':
+          description: 'Retriving Exsiting User'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDataResponse'
+        '401':
+          description: 'If your Token is Invalid or not provided any token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 'If No User Was Found with the Id'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - User
+  /{id}/id/update:
+    parameters:
+      - $ref: '#/components/parameters/IdParam'
+      - $ref: '#/components/parameters/JwtParam'
+    summary: To update the user data
+    post:
+      summary: ''
+      description: ''
+      security:
+        - user-auth: []
+      
+      x-eov-operation-handler: user-controller
+      operationId: updateUserAsyc
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        default:
+          description: Default error sample response
+        '200':
+          description: 'Retriving Exsiting User'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDataResponse'
+        '401':
+          description: 'If your Token is Invalid or not provided any token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 'If No User Was Found with the Id'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - User
+components:
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^.{24}$
+        example: 5f83827c6b3df58f10ab7d47
+    JwtParam:
+      name: jwt
+      in: query
+      required: true
+      description: 'This is required for Authentication'
+      schema:
+        type: string
+  schemas:
+    CreateUserRequest:
+      type: object
+      required:
+        - email
+        - password
+        - role
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          pattern: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{9,}$
+          example: Test@1234
+        role:
+          type: string
+          enum:
+            - User
+            - Admin
+            - Driver
+    SignInUserRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          pattern: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{9,}$
+          example: Test@1234
+    UserDataResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '661f90a1d3304f3e128e1ecd'
+        email:
+          type: string
+          example: 'test@gmail.com'
+        mobileNumber:
+          type: string
+          example: '+9112345677'
+        role:
+          type: string
+          enum:
+           - User
+           - Admin
+           - Driver
+    UserDataLoginInResponse:
+      type: object
+      properties:
+        user: 
+         $ref: '#/components/schemas/UserDataResponse'
+        jwt: 
+          type: string
+    ErrorResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        msg: 
+          type: string
+          example: "Error message"
+  securitySchemes:
+    user-auth:
+      type: apiKey
+      name: jwt
+      in: query
+    

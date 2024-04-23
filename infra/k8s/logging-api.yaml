@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: travel-log-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: travel-log
+  template:
+    metadata:
+      labels:
+        app: travel-log
+    spec:
+      containers:
+        - name: travel-log
+          image: kran891/travel-log
+          imagePullPolicy: Never
+          env:
+            - name: MONGO_URL
+              value: mongodb://mongo-srv:27017/travel-agency-logs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: travel-log-srv
+spec:
+  selector:
+    app: travel-log
+  ports:
+    - name: vehicle-log
+      protocol: TCP
+      port: 4040
+      targetPort: 4040
+#inside while routing we need to use clusterIp name i:e comments-srv here

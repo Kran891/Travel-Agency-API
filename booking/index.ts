@@ -11,6 +11,7 @@ import YAML from 'yamljs';
 import path from 'path'
 
 const app = express();
+const mongoURL=process.env.MONGO_URL || "mongodb://localhost:27017/travel-agency-booking"
 app.set('trust proxy',true);
 app.use(cookieSession({
     signed:false,
@@ -32,7 +33,7 @@ app.all('*',async(req,res,next) =>{
 app.use(jsonErrorMiddle);
 const start=async()=>{
     try {
-        mongoose.connect("mongodb://localhost:27017/travel-agency-vehicles")
+        mongoose.connect(mongoURL)
         app.listen(4002,()=>
         {
             console.log("Running on port ",4002);
