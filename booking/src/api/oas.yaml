@@ -1,16 +1,22 @@
 openapi: 3.0.0
 info:
-  description: This API returns any route to booking.
+  title: Travel Agency (Booking-API)
   version: 1.0.0
-  title: Booking API
+  description: This is project on Microservices where This API is useful for CRUD for
+    Booking
+  contact:
+    email: bsa.naveenbabu@gmail.com
+    name: Naveen
 servers:
   - url: /v1
+tags:
+  - name: Booking
+    description: This section contains all the CRUD operations can be performed for Booking
 paths:
-  '/create':
+  /create:
+    summary: This route is useful to create a Booking
     post:
-      tags:
-        - post Booking
-      summary: Booking API
+      summary: Create New Booking
       operationId: createBooking
       x-eov-operation-id: createBooking
       x-eov-operation-handler: booking-controller
@@ -42,11 +48,12 @@ paths:
             application/json:
               schema:
                 type: object
-  '/getbooking/{id}/id':
+  /getbooking/{id}/id:
+    summary: This is route helps to get Booking Details by id
     get:
+      summary: Get Booking Details By Id
       tags:
         - Get Booking Details
-      summary: Booking API
       operationId: getBookingById
       x-eov-operation-id: getBookingById
       x-eov-operation-handler: booking-controller
@@ -73,11 +80,12 @@ paths:
             application/json:
               schema:
                 type: object
-  '/deletebooking/{id}/id':
+  /deletebooking/{id}/id:
+    summary: This route helps to delete booking
     get:
       tags:
         - Delete Booking Details
-      summary: Booking API
+      summary: Delete Booking Details
       operationId: deleteBooking
       x-eov-operation-id: deleteBooking
       x-eov-operation-handler: booking-controller
@@ -101,11 +109,12 @@ paths:
             application/json:
               schema:
                 type: object
-  '/cancelbooking/{id}/id':
+  /cancelbooking/{id}/id:
+    summary: This route helps to cancel the booking
     post:
       tags:
         - Cancel the Booking
-      summary: Booking API
+      summary: Cancel the Booking
       operationId: cancelBooking
       x-eov-operation-handler: booking-controller
       parameters:
@@ -137,11 +146,12 @@ paths:
             application/json:
               schema:
                 type: object
-  '/updatebooking/{id}/id':
+  /updatebooking/{id}/id:
+    summary: This route helps us to update booking details
     post:
       tags:
         - Update the Booking Details 
-      summary: Booking API
+      summary: Update the Booking Details 
       operationId: updateBooking
       x-eov-operation-handler: booking-controller
       parameters:
@@ -172,11 +182,12 @@ paths:
             application/json:
               schema:
                 type: object
-  '/getallbookingsforthedate':
+  /getallbookingsforthedate:
+    summary: This route helps to get all the booking details for the particular date
     post:
       tags:
         - To Get all the booking for the date
-      summary: Booking API
+      summary: To Get all the booking for the date
       operationId: getAllBookingsForTheDate
       x-eov-operation-handler: booking-controller
       requestBody:
@@ -205,11 +216,12 @@ paths:
             application/json:
               schema:
                 type: object
-  '/getallbookingsforthemonth':
+  /getallbookingsforthemonth:
+    summary: This route helps us to get all bookings for the month
     post:
       tags:
         - Get All Bookings for the month
-      summary: Booking API
+      summary: Get All Bookings for the month
       operationId: getAllBookingsOfMonth
       x-eov-operation-handler: booking-controller
       requestBody:
