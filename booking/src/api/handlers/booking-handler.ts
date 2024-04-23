@@ -24,31 +24,31 @@ export class BookingHandler implements IBookingHandler{
     async updateBooking(req: Request,res: Response, next: NextFunction): Promise<void> {
         const {id} = req.params;
         const updatedBooking = await this.bookingService.updateBooking(id,{...req.body});
-        res.status(201).json(updatedBooking);
+        res.status(200).json(updatedBooking);
     }
     async deleteBooking(req: Request,res: Response, next: NextFunction): Promise<void> {
         const {id} = req.params;
         const deletedBooking = await this.bookingService.deleteBooking(id);
-        res.status(201).json(deletedBooking);
+        res.status(200).json(deletedBooking);
     }
     async cancelBooking(req: Request, res: Response,next:NextFunction): Promise<void>{
         const {id} = req.params;
-        const cancelledBooking = await this.bookingService.cancelBooking(id);
-        res.status(201).json(cancelledBooking);
+        const cancelledBooking = await this.bookingService.cancelBooking(id,{...req.body});
+        res.status(200).json(cancelledBooking);
     }
     async getBookingById(req: Request,res: Response, next: NextFunction): Promise<void> {
         const {id} = req.params;
         const fetchedBooking = await this.bookingService.getBookingById(id);
-        res.status(201).json(fetchedBooking);
+        res.status(200).json(fetchedBooking);
     }
     async getAllBookingsForTheDate(req: Request, res: Response,next:NextFunction): Promise<void>{
         const {date} = req.body;
         const allBookingsForTheDate = await this.bookingService.getAllBookingsForTheDate(date);
-        res.status(201).json(allBookingsForTheDate);
+        res.status(200).json(allBookingsForTheDate);
     }
     async getAllBookingsOfMonth(req: Request, res: Response,next:NextFunction): Promise<void>{
         const {month} = req.body;
         const allBookingsOfMonth = await this.bookingService.getAllBookingsOfMonth(month);
-        res.status(201).json(allBookingsOfMonth);
+        res.status(200).json(allBookingsOfMonth);
     }
 }

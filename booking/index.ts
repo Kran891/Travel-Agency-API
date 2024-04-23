@@ -5,6 +5,10 @@ import cookieSession from "cookie-session";
 import { NotFoundError } from "./src/errors/not-found-error";
 import { jsonErrorMiddle } from "./src/api/middlewares/json-error-middleware";
 import { BookingRouter } from "./src/api/routing";
+import { openApiMiddleware } from "./src/api/middlewares/open-api-middleware";
+import swaggerUi from "swagger-ui-express";
+import YAML from 'yamljs';
+import path from 'path'
 
 const app = express();
 app.set('trust proxy',true);
@@ -14,10 +18,9 @@ app.use(cookieSession({
     httpOnly:true
 }))
 app.use(json())
-app.get("/" ,(req,res) => {
-    res.json("Welcome to Booking API")
-});
-app.use("/api/booking",BookingRouter);
+const oasFile = YAML.load(path.join(__dirname , './src/api/oas.yaml'));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(oasFile));
+app.use(openApiMiddleware());
 app.all('*',async(req,res,next) =>{
     try {
       throw new NotFoundError()   
@@ -25,6 +28,7 @@ app.all('*',async(req,res,next) =>{
         next(error)
     }
 });
+
 app.use(jsonErrorMiddle);
 const start=async()=>{
     try {

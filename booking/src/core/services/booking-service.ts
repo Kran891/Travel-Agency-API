@@ -7,7 +7,7 @@ export interface IBookingService {
     updateBooking(id: string, booking: BookingAttr): Promise<BookingAttr | null>;
     deleteBooking(id: string): Promise<string>;
     getBookingById(id: string): Promise<BookingAttr | null>;
-    cancelBooking(id: string): Promise<BookingAttr | null>;
+    cancelBooking(id: string, booking: BookingAttr): Promise<BookingAttr | null>;
     getAllBookingsForTheDate(date:Date) : Promise<BookingAttr[] | null>;
     getAllBookingsOfMonth(month : number) : Promise<BookingAttr[] | null>;
 }
@@ -39,16 +39,16 @@ export class BookingService implements IBookingService {
                 return res;
             }
             else {
-                throw new ServiceError(`No Booking found with ${id}`);
+                throw new ServiceError(`No Booking found with ${id} to delete`);
             }
         }
         else {
             throw new ServiceError(`Id not found`);
         }
     }
-    async cancelBooking(id: string): Promise<BookingAttr | null> {
+    async cancelBooking(id: string,booking : BookingAttr): Promise<BookingAttr | null> {
         if (id) {
-            const res = await this.bookingStorage.cancelBooking(id);
+            const res = await this.bookingStorage.cancelBooking(id,booking);
             if (res) {
                 return res;
             } else {

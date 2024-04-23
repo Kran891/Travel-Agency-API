@@ -1,0 +1,379 @@
+openapi: 3.0.0
+info:
+  description: This API returns any route to booking.
+  version: 1.0.0
+  title: Booking API
+servers:
+  - url: /v1
+paths:
+  '/create':
+    post:
+      tags:
+        - post Booking
+      summary: Booking API
+      operationId: createBooking
+      x-eov-operation-id: createBooking
+      x-eov-operation-handler: booking-controller
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingCreateRequest'
+        description: Booking create request from web
+      responses:
+        '201':
+          description: Booking Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingCreateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '4XX':
+          $ref: '#/components/responses/ClientError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          description: Not implemented
+          content:
+            application/json:
+              schema:
+                type: object
+  '/getbooking/{id}/id':
+    get:
+      tags:
+        - Get Booking Details
+      summary: Booking API
+      operationId: getBookingById
+      x-eov-operation-id: getBookingById
+      x-eov-operation-handler: booking-controller
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '201':
+          description: Booking Details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookingCreateResponse"
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '4XX':
+          $ref: '#/components/responses/ClientError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          description: Not implemented
+          content:
+            application/json:
+              schema:
+                type: object
+  '/deletebooking/{id}/id':
+    get:
+      tags:
+        - Delete Booking Details
+      summary: Booking API
+      operationId: deleteBooking
+      x-eov-operation-id: deleteBooking
+      x-eov-operation-handler: booking-controller
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '201':
+          description: Booking Id
+          $ref: '#/components/responses/BookingDeleted'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '4XX':
+          $ref: '#/components/responses/ClientError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          description: Not implemented
+          content:
+            application/json:
+              schema:
+                type: object
+  '/cancelbooking/{id}/id':
+    post:
+      tags:
+        - Cancel the Booking
+      summary: Booking API
+      operationId: cancelBooking
+      x-eov-operation-handler: booking-controller
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+         application/json:
+          schema:
+           $ref: '#/components/schemas/BookingCreateRequest'
+      responses:
+        '201':
+          description: Booking Cancelled successfully
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/BookingCreateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '4XX':
+          $ref: '#/components/responses/ClientError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          description: Not implemented
+          content:
+            application/json:
+              schema:
+                type: object
+  '/updatebooking/{id}/id':
+    post:
+      tags:
+        - Update the Booking Details 
+      summary: Booking API
+      operationId: updateBooking
+      x-eov-operation-handler: booking-controller
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/BookingCreateRequest'    
+      responses:
+        '201':
+          description: Booking updated successfully
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/BookingCreateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '4XX':
+          $ref: '#/components/responses/ClientError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          description: Not implemented
+          content:
+            application/json:
+              schema:
+                type: object
+  '/getallbookingsforthedate':
+    post:
+      tags:
+        - To Get all the booking for the date
+      summary: Booking API
+      operationId: getAllBookingsForTheDate
+      x-eov-operation-handler: booking-controller
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/Date'
+      responses:
+        '201' :
+          description: All the Booking for the date
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/BookingsForTheDate"
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '4XX':
+          $ref: '#/components/responses/ClientError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          description: Not implemented
+          content:
+            application/json:
+              schema:
+                type: object
+  '/getallbookingsforthemonth':
+    post:
+      tags:
+        - Get All Bookings for the month
+      summary: Booking API
+      operationId: getAllBookingsOfMonth
+      x-eov-operation-handler: booking-controller
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: object
+      responses:
+        '201':
+          description: All the Bookings of the month
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/BookingsForTheDate'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '4XX':
+          $ref: '#/components/responses/ClientError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '501':
+          description: Not implemented
+          content:
+            application/json:
+              schema:
+                type: object
+        
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      description: Booking Id
+      required: true
+      schema:
+        type: string
+
+  schemas:
+    BookingCreateRequest:
+      type: object
+      required:
+        - vehicleId
+        - bookingDate
+        - journeyDate
+        - boardingPoint
+        - dropPoint
+        - contactNumber
+        - fare
+        - bookingStatus
+        - passengerDetails
+      properties:
+        vehicleId:
+          type: string
+        bookingDate:
+          type: string
+          format: date
+        journeyDate:
+          type: string
+          format: date
+        boardingPoint:
+          type: string
+        dropPoint:
+          type: string
+        contactNumber:
+          type: number
+        fare:
+          type: number
+        bookingStatus:
+          type: string
+          enum: [BOOKED, CANCELLED]
+        passengerDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/Passenger'
+
+    BookingCreateResponse:
+      type: object
+      required:
+        - vehicleId
+        - bookingDate
+        - journeyDate
+        - boardingPoint
+        - dropPoint
+        - contactNumber
+        - fare
+        - bookingStatus
+        - passengerDetails
+      properties:
+        vehicleId:
+          type: string
+        bookingDate:
+          type: string
+          format: date
+        journeyDate:
+          type: string
+          format: date
+        boardingPoint:
+          type: string
+        dropPoint:
+          type: string
+        contactNumber:
+          type: number
+        fare:
+          type: number
+        bookingStatus:
+          type: string
+          enum: [BOOKED, CANCELLED]
+        passengerDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/Passenger'
+
+    BookingsForTheDate:
+      type: array
+      properties:
+        schema:
+          $ref: '#/components/schemas/BookingCreateResponse'
+
+    Passenger:
+      type: object
+      required:
+        - name
+        - gender
+        - age
+      properties:
+        name:
+          type: string
+        gender:
+          type: string
+        age:
+          type: number
+    
+    Date: 
+      type: object
+  responses:
+    BadRequest:
+        description: Bad request (400)
+        content:
+          application/json:
+            schema:
+              type: object
+    NotFound:
+      description: The specified resource was not found (404)
+      content:
+        application/json:
+          schema:
+            type: object
+    ClientError:
+      description: Generic response for the range of HTTP 4XX error codes
+      content:
+        application/json:
+          schema:
+            type: object
+    InternalServerError:
+      description: Internal Server Error (500)
+      content:
+        application/json:
+          schema:
+            type: object
+    BookingDeleted:
+      description: Booking is deleted
+      content:
+        application/json:
+          schema:
+            type: string
