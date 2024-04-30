@@ -1,16 +1,11 @@
 import mongoose from 'mongoose';
 import { app } from './app';
 import http from 'http'
-import { natsWrapper } from './nats-wrapper';
-import { rabbitMq } from './rabbitmq-wrapper';
-import { BookinCreatedEvent } from './src/events/booking-created-event';
-import { BookingCreateRequestBookingStatus, BookingCreateResponseBookingStatus } from './src/api/api-modelsv2';
 
+import { rabbitMq } from './src/utils/rabbitmq-wrapper';
+import { BookinCreatedEvent } from './src/events/booking-created-event';
 const mongoURL=process.env.MONGOURL || "mongodb://localhost:27017/travel-agency-vehicles"
-const clusterId='travel-ageny'
-const clientId='booking-api'
-const natsUrl='http://localhost:4222/'
-const RabbitMqUrl='amqp://localhost'
+const RabbitMqUrl=process.env.RABBITMQ || 'amqp://localhost'
 const start=async()=>{
     try {
         //await natsWrapper.connect(natsUrl)

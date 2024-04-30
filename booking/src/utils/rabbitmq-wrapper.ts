@@ -1,9 +1,9 @@
 import amqp, { Connection ,Channel} from 'amqplib';
-import { error } from 'express-openapi-validator';
+
 
 class RabbitMq {
-    _connection?:Connection;
-    _channel?:Channel;
+    private _connection?:Connection;
+    private _channel?:Channel;
     get connection(){
         if(!this._connection){
             throw new Error("Not Connected to RabbiMq")

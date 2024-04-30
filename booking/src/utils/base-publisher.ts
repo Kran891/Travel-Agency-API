@@ -1,5 +1,5 @@
 import { Channel } from "amqplib";
-import { JetStreamClient } from "nats";
+
 interface Event {
     subject: Subjects,
     data: any
@@ -9,7 +9,7 @@ export enum Subjects {
 }
 export abstract class Publisher<T extends Event>{
     abstract subject: T['subject']
-   // private client: JetStreamClient;
+   
     private channel:Channel;
     constructor(channel:Channel) { this.channel = channel }
     async publish(data: T['data']): Promise<void> {

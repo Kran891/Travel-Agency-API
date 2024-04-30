@@ -3,7 +3,7 @@ import { app } from './app'
 
 import { IVehicleBookingClient, VehicleBookingClient } from './src/core/client/vehicle-booking-client';
 import { VehicleBookingCreatedEvent } from './src/events/booking-created-event';
-import { rabbitMq } from './src/rabbitmq-wrapper';
+import { rabbitMq } from './src/utils/rabbitmq-wrapper';
 const RabbitMqUrl='amqp://localhost'
 const storage:IVehicleBookingClient=new VehicleBookingClient();
 const start=async ()=>{try{
