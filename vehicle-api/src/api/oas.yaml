@@ -261,8 +261,8 @@ paths:
     post:
       summary: ''
       description: ''
-      security:
-       - token: []
+      # security:
+      #  - token: []
       x-eov-operation-handler: vehicle-booking-controller
       operationId: updateBookingAsync
       requestBody:

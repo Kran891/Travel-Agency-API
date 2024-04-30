@@ -6,8 +6,7 @@ import cookieSession from 'cookie-session'
 import { jsonErrorMiddle } from './src/api/middlewares/json-error-middleware';
 
 import { openApiMiddleware } from './src/api/middlewares/open-api-middleware';
-import { SwaggerDoc, SwaggerUI } from './src/api/utils/swagger-ui';
-
+import { SwaggerDoc, SwaggerUI } from './src/utils/swagger-ui';
 
 const app=express()
 
