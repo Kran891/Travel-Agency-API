@@ -10,7 +10,7 @@ const mongoURL=process.env.MONGO_URL || "mongodb://localhost:27017/travel-agency
 const start=async()=>{
     try {
         mongoose.connect(mongoURL)
-        console.log("🍀 Successfly connected to MongoDB LocalService");
+        console.log("🍀 Successfly connected to MongoDB LocalService.");
         
         http.createServer(app).listen(4000,()=>
         {
