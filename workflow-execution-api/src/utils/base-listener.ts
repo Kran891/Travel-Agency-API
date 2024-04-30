@@ -7,7 +7,7 @@ interface Event {
 export abstract class Listener<T extends Event>{
     abstract subject: T['subject']
     channel: Channel;
-    abstract queueGroup:string;
+    abstract queueGroup: string;
     constructor(channel: Channel) { this.channel = channel }
     abstract message(data: T['data']): Promise<void>;
     parseData(msg: Message): T['data'] {
@@ -23,13 +23,20 @@ export abstract class Listener<T extends Event>{
             if (!msg) {
                 console.log('❌ Not received any message ', this.subject);
             } else {
-                const parsedData = this.parseData(msg!)
-                console.log('📥 Received Message for ', this.subject);
-             await this.message(parsedData)
-             this.channel.ack(msg);
-             console.log('☑️  Message Acknowleged Succeessfully...');
-             
+                try {
+                    const parsedData = this.parseData(msg!)
+                    console.log('📥 Received Message for ', this.subject);
+                    await this.message(parsedData)
+                    this.channel.ack(msg);
+                    console.log('☑️  Message Acknowleged Succeessfully...');
+
+                } catch (error:any) {
+                    console.log('❌ Error:', error.message);
+
+                }
+
+
             }
-        },{noAck:false})
+        }, { noAck: false })
     }
 }
