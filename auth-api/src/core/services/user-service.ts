@@ -40,6 +40,7 @@ export class UserService {
   }
 
 }
+
 export const USER_EXSITS = "Email Id has been taken"
 export const INVALID_USER = "Email or password incorrect"
 export const INVALID_USERID=(id:string)=>`No user found with the ID ${id}`

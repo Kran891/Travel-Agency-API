@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { Password } from "../utils/password";
 import { Roles } from "./roles";
+
 const userSchema=new mongoose.Schema({
     email:{
         type:String,
@@ -30,7 +31,6 @@ const userSchema=new mongoose.Schema({
         }
       }
 })
-
 interface UserAttr{
     email:string,
     password:string,
@@ -57,8 +57,7 @@ userSchema.pre('save',async function(done){
    this.password=hashed
   }
   done()
-}
-
-)
+})
 const User=mongoose.model<UserDoc,UserModel>('user',userSchema);
+
 export {User,UserAttr}

@@ -8,4 +8,5 @@ const asyncErrorMiddleware=(middleware:Middleware)=>async (req:Request,res:Respo
         next(error)
     }
 }
+
 export {asyncErrorMiddleware}

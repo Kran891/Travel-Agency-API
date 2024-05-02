@@ -1,12 +1,7 @@
 import mongoose from 'mongoose';
 import http from 'http'
 import { app } from './app';
-
 const mongoURL=process.env.MONGO_URL || "mongodb://localhost:27017/travel-agency-users"
-
-
-
-
 const start=async()=>{
     try {
         mongoose.connect(mongoURL)

@@ -11,4 +11,5 @@ interface CreateUserResponse{
     mobileNumber:string,
     role:Roles
 }
+
 export {CreateUserRequest,CreateUserResponse}
