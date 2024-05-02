@@ -22,4 +22,5 @@ class VehicleBookingStorage implements IVehicleBookingStorage{
     }
     
 }
+
 export {IVehicleBookingStorage,VehicleBookingStorage}

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const VehicleBookingSchema=new mongoose.Schema({
     bookingDate:Date,
     capacity:Number,

@@ -46,12 +46,13 @@ const vehicleSchema=new mongoose.Schema({
 interface Route{
   source:string,
   destination:string,
-  distance:Number
+  distance:number,
+  startTime:string
 }
 interface VehicleAttr{
     registrationNumber:string,
-    capacity:Number,
-    priceperkm:Number,
+    capacity:number,
+    priceperkm:number,
     vehicleStatus:VehicleStatus,
     driverId:string,
     vehicleType:VehicleType,
@@ -61,8 +62,8 @@ interface VehicleAttr{
 }
 interface VehicleDoc extends mongoose.Document{
     registrationNumber:string,
-    capacity:Number,
-    priceperkm:Number,
+    capacity:number,
+    priceperkm:number,
     vehicleStatus:VehicleStatus,
     driverId:string,
     vehicleType:VehicleType,

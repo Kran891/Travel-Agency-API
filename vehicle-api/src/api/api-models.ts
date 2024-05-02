@@ -1,7 +1,7 @@
 interface Vehicle{
     registrationNumber:string,
-    capacity:Number,
-    priceperkm:Number,
+    capacity:number,
+    priceperkm:number,
     vehicleStatus:VehicleStatus,
     driverId:string,
     vehicleType:VehicleType,
@@ -17,6 +17,7 @@ enum VehicleType{
 interface Route{
     source:string,
     destination:string,
-    distance:Number
+    distance:number,
+    startTime:string,
   }
 export {Vehicle,Route}

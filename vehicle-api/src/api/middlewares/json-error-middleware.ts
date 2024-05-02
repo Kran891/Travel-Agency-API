@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { DatabaseError } from "../../errors/database-error";
 import { CustomError } from "../../errors/custom-error";
 import { BadRequest } from "express-openapi-validator/dist/openapi.validator";
 
@@ -14,4 +13,5 @@ const jsonErrorMiddle=(err:Error,req:Request,res:Response,_next:NextFunction)=>{
     else
       res.status(500).json(err.message);
 }
+
 export {jsonErrorMiddle}

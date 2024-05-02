@@ -1,5 +1,4 @@
 import { ServiceError } from "../../errors/service-error";
-
 import {  VehicleBookingAttr } from "../models/vehicle-booking";
 import { IVehicleBookingStorage } from "../storage/vehicle-booking-storage";
 import { IVehicleService } from "./vehicle-service";
@@ -9,6 +8,7 @@ interface IVehicleBookingService{
     updateBooking(vehicleId:string,capacity:number,date:Date):Promise<VehicleBookingAttr | null>;
     getByVehicleId(vehicleId:string,date:Date):Promise<VehicleBookingAttr | null>;
 }
+
 class VehicleBookingService implements IVehicleBookingService{
     constructor(private vehicleBookingStorage:IVehicleBookingStorage,private vehicleService:IVehicleService){}
     async createBooking(vehicleBooking: VehicleBookingAttr): Promise<VehicleBookingAttr> {
@@ -35,4 +35,5 @@ class VehicleBookingService implements IVehicleBookingService{
        return booking
     }
 }
+
 export {IVehicleBookingService,VehicleBookingService};

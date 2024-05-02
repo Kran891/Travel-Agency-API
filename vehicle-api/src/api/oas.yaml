@@ -22,8 +22,8 @@ paths:
     summary: This route is useful to create an Vehicle
     post:
       summary: Creating a new Vehicle
-      security:
-        - token: []
+      # security:
+      #   - token: []
       description: ''
       x-eov-operation-handler: vehicle-controller
       operationId: createVehicleAsync
@@ -61,8 +61,8 @@ paths:
     post:
       summary: This is used to update details of the exsiting vehicle
       description: ''
-      security:
-        - token: []
+      # security:
+      #   - token: []
       x-eov-operation-handler: vehicle-controller
       operationId: updateVehicleAsync
       requestBody:
@@ -128,8 +128,8 @@ paths:
     post:
       summary: 'This is used to add the route to the exsiting vehicle '
       description: ''
-      security:
-        - token: []
+      # security:
+      #   - token: []
       x-eov-operation-handler: vehicle-controller
       operationId: addrouteAsync
       requestBody:
@@ -177,8 +177,8 @@ paths:
         This is used to remove the routes of the vehicle by Id based on source
         and destination
       description: ''
-      security:
-        - token: []
+      # security:
+      #   - token: []
       x-eov-operation-handler: vehicle-controller
       operationId: removeRouteAsync
       requestBody:
@@ -261,8 +261,8 @@ paths:
     post:
       summary: ''
       description: ''
-      security:
-       - token: []
+      # security:
+      #  - token: []
       x-eov-operation-handler: vehicle-booking-controller
       operationId: updateBookingAsync
       requestBody:
@@ -395,16 +395,16 @@ components:
           format: date
         capacity:
           type: number
-          minimum: 1
-          maximum: 4
+          minimum: -3
+          maximum: 3
           example: 1
         id:
           type: string
         vehicleId: 
           type: string
-  securitySchemes:
-    token:
-      name: jwt
-      type: apiKey
-      in: query
+  # securitySchemes:
+  #   token:
+  #     name: jwt
+  #     type: apiKey
+  #     in: query
       

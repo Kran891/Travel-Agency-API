@@ -1,7 +1,6 @@
 import path from 'path'
 import { middleware } from 'express-openapi-validator';
 
-
 const openApiMiddleware = () => {
   const specFilePath = path.join(__dirname, '../oas.yaml');
 

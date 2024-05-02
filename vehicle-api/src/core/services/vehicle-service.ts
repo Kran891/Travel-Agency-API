@@ -1,7 +1,5 @@
 import { Route ,VehicleAttr} from "../models/vehicle";
-import { NotFoundError } from "../../errors/not-found-error";
 import { ServiceError } from "../../errors/service-error";
-
 import { IVehicleStorage } from "../storage/vehicle-storage";
 
 export interface IVehicleService{

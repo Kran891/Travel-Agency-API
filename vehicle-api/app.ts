@@ -10,7 +10,6 @@ import { SwaggerDoc, SwaggerUI } from './src/api/utils/swagger-ui';
 import cookieParser from 'cookie-parser';
 
 const app=express()
-
 app.set('trust proxy',true)
 app.use(cookieSession({
     signed:false,
@@ -20,7 +19,7 @@ app.use(cookieSession({
 app.use(cookieParser())
 app.use(json())
 app.use("/api/vehicles/docs",SwaggerUI.serve,SwaggerUI.setup(SwaggerDoc))
-
 app.use(openApiMiddleware())
 app.use(jsonErrorMiddle);
+
 export {app}
