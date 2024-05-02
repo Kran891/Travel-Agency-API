@@ -14,7 +14,7 @@ export class UserHandler {
     }
     res.cookie('jwt', userjwt);
     
-    res.json({...user,jwt:userjwt})
+    res.json({user,jwt:userjwt})
   }
   async userSignIn(req: Request, res: Response, next: NextFunction) {
     

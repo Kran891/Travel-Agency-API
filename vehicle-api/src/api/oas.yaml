@@ -261,8 +261,8 @@ paths:
     post:
       summary: ''
       description: ''
-      # security:
-      #  - token: []
+      security:
+       - token: []
       x-eov-operation-handler: vehicle-booking-controller
       operationId: updateBookingAsync
       requestBody:
@@ -280,6 +280,12 @@ paths:
                 $ref: '#/components/schemas/BookingSchema'
         '401':
           description: When an token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: When any Service Error Occurs
           content:
             application/json:
               schema:
@@ -401,3 +407,4 @@ components:
       name: jwt
       type: apiKey
       in: query
+      

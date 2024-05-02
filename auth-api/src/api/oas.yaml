@@ -192,6 +192,7 @@ components:
         - email
         - password
         - role
+        - mobileNumber
       properties:
         email:
           type: string
@@ -200,6 +201,9 @@ components:
           type: string
           pattern: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{9,}$
           example: Test@1234
+        mobileNumber:
+          type: string
+          example: '+9112345677'
         role:
           type: string
           enum:

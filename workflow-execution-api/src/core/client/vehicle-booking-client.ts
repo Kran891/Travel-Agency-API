@@ -7,8 +7,8 @@ interface IVehicleBookingClient{
 }
 class VehicleBookingClient implements IVehicleBookingClient{
     async updateBooking(data: Booking): Promise<void> {
-        const response=await postData(UpdateVehicleBooking(data.jwt || 'TESTING'),data).catch((err:Error)=>{
-            throw new Error(`AN Error Occured ${err}`)
+        const response=await postData(UpdateVehicleBooking(data.jwt,data.vehicleId),data).catch((err:Error)=>{
+            throw new Error(`An Error Occured ${err}`)
         })
         
     }

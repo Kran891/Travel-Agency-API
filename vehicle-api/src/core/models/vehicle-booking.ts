@@ -19,13 +19,13 @@ const VehicleBookingSchema=new mongoose.Schema({
 )
 interface VehicleBookingAttr{
     bookingDate:Date,
-    capacity:Number,
+    capacity:number,
     vehicleId: string,
     id?:string
 }
 interface VehicleBookingDoc extends mongoose.Document{
     bookingDate:Date,
-    capacity:Number,
+    capacity:number,
     vehicleId: string
 }
 interface VehicleBookingModel extends mongoose.Model<VehicleBookingDoc>{

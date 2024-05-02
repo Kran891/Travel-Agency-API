@@ -1,5 +1,5 @@
 import { Channel, Message } from "amqplib";
-import { Subjects } from "../../../booking/src/utils/base-publisher";
+import { Subjects } from "../../../booking-api/src/utils/base-publisher";
 import { Listener } from "../utils/base-listener";
 import { Booking } from "./models";
 import { IVehicleBookingClient } from "../core/client/vehicle-booking-client";

@@ -7,7 +7,7 @@ import { jsonErrorMiddle } from './src/api/middlewares/json-error-middleware';
 
 import { openApiMiddleware } from './src/api/middlewares/open-api-middleware';
 import { SwaggerDoc, SwaggerUI } from './src/api/utils/swagger-ui';
-
+import cookieParser from 'cookie-parser';
 
 const app=express()
 
@@ -17,6 +17,7 @@ app.use(cookieSession({
     secure:true,
     httpOnly:true
 }))
+app.use(cookieParser())
 app.use(json())
 app.use("/api/vehicles/docs",SwaggerUI.serve,SwaggerUI.setup(SwaggerDoc))
 
