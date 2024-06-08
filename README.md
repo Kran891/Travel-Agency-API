@@ -93,6 +93,7 @@ First start the minikube if you're using minikube through Docker and point minik
 ```bash
   minikube start
   &minikube -p minikube docker-env
+  skaffold start
 ```
 
 
